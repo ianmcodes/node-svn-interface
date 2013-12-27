@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "svn-interface",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {
+    "xml2js": "~0.4.0"
+  }
+}
