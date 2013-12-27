@@ -3,6 +3,8 @@
   "name": "svn-interface",
   "description": "",
   "version": "0.1.0",
+  "licence": "MIT"
+  "author": "Ian McCall <imccall@da-puck.com> (http://www.da-puck.com/)"
   "dependencies": {
     "xml2js": "~0.4.0"
   }
