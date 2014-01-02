@@ -5,6 +5,8 @@ A programing interface to Subverstion for Node.js. Uses child process spawning t
 For SVN commands that support it, this library uses the `--xml` option and parses the xml returned with 
 [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js).
 
+[![NPM](https://nodei.co/npm/svn-interface.png)](https://nodei.co/npm/svn-interface/)
+
 Most functions take 3 arguments
 ------------------------------
 
