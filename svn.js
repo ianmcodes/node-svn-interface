@@ -148,9 +148,12 @@ function patch(file, wc, options, cb) {
   _execSVN('patch', [file, wc], options, cb);
 }
 
-
 function revert (files, options, cb) {
   _execSVN('revert', files, options, cb);
+}
+
+function update (files, options, cb) {
+  _execSVN('update', files, options, cb);
 }
 
 function _execSVN(cmd, files, options, cb) {
@@ -169,14 +172,28 @@ function _process(args, cb) {
   var stdout = "";
   // console.log(COMMAND, args);
   var child = spawn(COMMAND, args);
-  child.stdout.on("data", function(data) {
+  child.stdout.on("data", function appendData(data) {
     stdout += data.toString();
   });
-  child.on('exit', function(code, sig) {
+  child.on('exit', function childExit(code, sig) {
     if(code !== null) {
       // console.log(stdout);
-      var result = (args.indexOf('--xml') > -1) ? xml2js.parseString(stdout) : stdout;
-      cb(false, result);
+      if(args.indexOf('--xml') > -1) {
+        xml2js.parseString(stdout, { 
+            attrkey: "_attribute",
+            charkey: "_text",
+            explicitCharkey: true,
+            explicitArray: false
+          }, 
+          function parse(err, result) {
+            cb(false, result);
+          }
+        );
+      } else {
+        cb(false, stdout);
+      }
+    } else {
+      cb(code, stdout);
     }
   });
   return child;
@@ -247,7 +264,7 @@ var svn = { // Long names
   status: status,
   "switch": NOTDONE,
   unlock: NOTDONE,
-  update: NOTDONE,
+  update: update,
   upgrade: NOTDONE,
   _execSVN: _execSVN
 };
