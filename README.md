@@ -11,11 +11,12 @@ Most functions take 3 arguments
 ------------------------------
 
  * working copy (wc) or files: (String|Array)
-  * Required. 
  * options: (Object)
-  * Required for some functions
+  * The keys should match the options from `svn help cmd` (without the - or --). The value will be the argument to the command. If an option does not take an argument (like `--dry-run`) the value should be `true`.
+  * Example: `{ "username": "bob", "password": "a-secret", 'dry-run': true }`
+  * There is one exception, the `cwd` option. The `cwd` option will be used for resolving relitive paths for files and working coppies.
  * callback (cb): (Function)
-  * Optional. Receives (error, result)
+  * Optional. Receives (error, result). 
 
 Currently Implemented svn commands
 ----------------------------------
@@ -44,3 +45,9 @@ Currently Implemented svn commands
  * revert (files, options, cb) 
  * status (files, options, cb) 
  * update (files, options, cb) 
+
+For any commands that have not been implemented yet, the `_execSVN` function is available. `_execSVN` takes the following:
+ * cmd: (String). The svn command you want to use.
+ * files: (String|Array). A list of files that will be added to the end (in order).
+ * options: (Object) See above
+ * callback (cb): (Function) Ditto

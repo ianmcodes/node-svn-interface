@@ -1,6 +1,6 @@
 {
   "name": "svn-interface",
-  "description": "",
+  "description": "SVN Interface for Node.js",
   "keywords": ["svn", "subverstion"],
   "version": "0.1.0",
   "licence": "MIT",
