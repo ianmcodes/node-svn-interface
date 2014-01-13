@@ -2,9 +2,15 @@
   "name": "svn-interface",
   "description": "SVN Interface for Node.js",
   "keywords": ["svn", "subverstion"],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "licence": "MIT",
   "author": "Ian McCall <imccall@da-puck.com> (http://www.da-puck.com/)",
+  "contributors": [
+    {
+      "name": "George Petrov",
+      "url": "http://www.dmxzone.com/"
+    }
+  ]
   "main": "./svn",
   "repository": {
     "type": "git",
