@@ -10,7 +10,7 @@
       "name": "George Petrov",
       "url": "http://www.dmxzone.com/"
     }
-  ]
+  ],
   "main": "./svn",
   "repository": {
     "type": "git",
