@@ -6,7 +6,7 @@ var path = require('path');
 var COMMAND = "svn";
 
 /**
- * This is a dummy function for the features 
+ * This is a dummy function for the features
  * I have not impelmented yet.
  */
 function NOTDONE() {
@@ -16,7 +16,7 @@ function NOTDONE() {
 /**
  * Most function take 3 arguments
  * working copy (wc) or files: (String|Array)
- *   Required. 
+ *   Required.
  * options: (Object)
  *   Required for some functions
  * callback (cb): (Function)
@@ -159,7 +159,7 @@ function update (files, options, cb) {
 function _execSVN(cmd, files, options, cb) {
   cb = (!cb) ? function empty() {} : cb;
   options = (!options) ? {} : options;
-  files = _fixFiles(files, options.cwd);
+  files = _fixFiles(files, options);
   delete options.cwd;
   files = files.join(" ");
   var args = _getArgs(options);
@@ -169,31 +169,35 @@ function _execSVN(cmd, files, options, cb) {
 }
 
 function _process(args, cb) {
-  var stdout = "";
+  var stdout = "", stderr = "";
   // console.log(COMMAND, args);
   var child = spawn(COMMAND, args);
   child.stdout.on("data", function appendData(data) {
     stdout += data.toString();
   });
+  child.stderr.on("data", function appendData(data) {
+    stderr += data.toString();
+  });
+
   child.on('exit', function childExit(code, sig) {
-    if(code !== null) {
+    if(code == 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {
-        xml2js.parseString(stdout, { 
+        xml2js.parseString(stdout, {
             attrkey: "_attribute",
             charkey: "_text",
             explicitCharkey: true,
             explicitArray: false
-          }, 
+          },
           function parse(err, result) {
-            cb(false, result);
+            cb(null, result);
           }
         );
       } else {
-        cb(false, stdout);
+        cb(null, stdout);
       }
     } else {
-      cb(code, stdout);
+      cb(code, stderr);
     }
   });
   return child;
@@ -216,14 +220,16 @@ function _getArgs(options) {
   return args;
 }
 
-function _fixFiles(files, cwd) {
+function _fixFiles(files, options) {
   if(files.split) {
     files = files.split(" ");
   }
-  // for each file get absolute path
-  for(var i = 0; i < files.length; i++) {
-    if(!/:\/\//.test(files[i])) {
-      files[i] = path.resolve(options.cwd, files[i]);
+  if (options.cwd) {
+    // for each file get absolute path
+    for(var i = 0; i < files.length; i++) {
+      if(!/:\/\//.test(files[i])) {
+        files[i] = path.resolve(options.cwd, files[i]);
+      }
     }
   }
   return files;
