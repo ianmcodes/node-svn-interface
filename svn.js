@@ -58,13 +58,16 @@ function changelist(files, name, options, cb) { //needs to handle change-list na
 }
 
 function checkout (url, path, options, cb) {
+	// debugger;
 	if(typeof options === 'function') {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options[url] = true;
-  options[path] = (!path) ? options.cwd : path;
-  _execSVN('co', "", options, cb);
+  // options[url] = true;
+  // options[path] = (!path) ? options.cwd : path;
+  var files = [ url ];
+  files.push((!path) ? options.cwd : path);
+  _execSVN('co', files, options, cb);
 }
 
 function cleanup (wc, options, cb) {
@@ -101,6 +104,7 @@ function svnImport (files, options, cb) {
 }
 
 function info (files, options, cb) {
+	//debugger;
 	if(typeof options === 'function') {
 		cb = options; options = {};
 	} 
@@ -203,10 +207,11 @@ function _execSVN(cmd, files, options, cb) {
   options = (!options) ? {} : options;
   files = _fixFiles(files, options);
   delete options.cwd;
-  files = files.join(" ");
+  //files = files.join(" ");
   var args = _getArgs(options);
   args.unshift(cmd);
-  args.push(files);
+  //args.push(files);
+  args = args.concat(files);
   _process(args, cb);
 }
 
