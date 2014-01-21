@@ -29,7 +29,7 @@ function add(files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('add', files, options, cb);
+  return _execSVN('add', files, options, cb);
 }
 
 function blame(files, options, cb) {
@@ -38,14 +38,14 @@ function blame(files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('blame', files, options, cb);
+  return _execSVN('blame', files, options, cb);
 }
 
 function cat(files, options, cb) {
 	if(typeof options === 'function') {
 		cb = options; options = {};
 	} 
-  _execSVN('cat', files, options, cb);
+  return _execSVN('cat', files, options, cb);
 }
 
 function changelist(files, name, options, cb) { //needs to handle change-list name
@@ -54,7 +54,7 @@ function changelist(files, name, options, cb) { //needs to handle change-list na
 	} 
   options = (!options) ? {} : options;
   options[name] = true;
-  _execSVN('cl', files, options, cb);
+  return _execSVN('cl', files, options, cb);
 }
 
 function checkout (url, path, options, cb) {
@@ -67,23 +67,23 @@ function checkout (url, path, options, cb) {
   // options[path] = (!path) ? options.cwd : path;
   var files = [ url ];
   files.push((!path) ? options.cwd : path);
-  _execSVN('co', files, options, cb);
+  return _execSVN('co', files, options, cb);
 }
 
 function cleanup (wc, options, cb) {
-  _execSVN('cleanup', wc, options, cb);
+  return _execSVN('cleanup', wc, options, cb);
 }
 
 function commit (files, options, cb) {
-  _execSVN('ci', files, options, cb);
+  return _execSVN('ci', files, options, cb);
 }
 
 function copy (src, dest, options, cb) {
-  _execSVN('ci', [src, dest], options, cb);
+  return _execSVN('ci', [src, dest], options, cb);
 }
 
 function svnDelete (files, options, cb) {
-  _execSVN('rm', files, options, cb);
+  return _execSVN('rm', files, options, cb);
 }
 
 function diff (files, options, cb) {
@@ -92,15 +92,15 @@ function diff (files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('di', files, options, cb);
+  return _execSVN('di', files, options, cb);
 }
 
 function svnExport (files, options, cb) {
-  _execSVN('export', files, options, cb);
+  return _execSVN('export', files, options, cb);
 }
 
 function svnImport (files, options, cb) {
-  _execSVN('import', files, options, cb);
+  return _execSVN('import', files, options, cb);
 }
 
 function info (files, options, cb) {
@@ -110,7 +110,7 @@ function info (files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('info', files, options, cb);
+  return _execSVN('info', files, options, cb);
 }
 
 function list (files, options, cb) {
@@ -119,11 +119,11 @@ function list (files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('list', files, options, cb);
+  return _execSVN('list', files, options, cb);
 }
 
 function lock (files, options, cb) {
-  _execSVN('lock', files, options, cb);
+  return _execSVN('lock', files, options, cb);
 }
 
 function log (files, options, cb) {
@@ -132,7 +132,7 @@ function log (files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('log', files, options, cb);
+  return _execSVN('log', files, options, cb);
 }
 
 function merge (src, target, options, cb) {
@@ -145,7 +145,7 @@ function merge (src, target, options, cb) {
     src = src.split(" ");
   }
   src.push(target);
-  _execSVN('merge', src, options, cb);
+  return _execSVN('merge', src, options, cb);
 }
 
 function mergeinfo (src, target, options, cb) {
@@ -158,11 +158,11 @@ function mergeinfo (src, target, options, cb) {
     src = src.split(" ");
   }
   src.push(target);
-  _execSVN('mergeinfo', src, options, cb);
+  return _execSVN('mergeinfo', src, options, cb);
 }
 
 function mkdir (files, options, cb) {
-  _execSVN('mkdir', files, options, cb);
+  return _execSVN('mkdir', files, options, cb);
 }
 
 function move (src, dest, options, cb) {
@@ -175,7 +175,7 @@ function move (src, dest, options, cb) {
     src = src.split(" ");
   }
   src.push(dest);
-  _execSVN('merge', src, options, cb);
+  return _execSVN('merge', src, options, cb);
 }
 
 function status(files, options, cb) {
@@ -184,19 +184,19 @@ function status(files, options, cb) {
 	} 
   options = (!options) ? {} : options;
   options.xml = true;
-  _execSVN('st', files, options, cb);
+  return _execSVN('st', files, options, cb);
 }
 
 function patch(file, wc, options, cb) {
-  _execSVN('patch', [file, wc], options, cb);
+  return _execSVN('patch', [file, wc], options, cb);
 }
 
 function revert (files, options, cb) {
-  _execSVN('revert', files, options, cb);
+  return _execSVN('revert', files, options, cb);
 }
 
 function update (files, options, cb) {
-  _execSVN('update', files, options, cb);
+  return _execSVN('update', files, options, cb);
 }
 
 function _execSVN(cmd, files, options, cb) {
@@ -212,7 +212,7 @@ function _execSVN(cmd, files, options, cb) {
   args.unshift(cmd);
   //args.push(files);
   args = args.concat(files);
-  _process(args, cb);
+  return _process(args, cb);
 }
 
 function _process(args, cb) {
@@ -227,7 +227,7 @@ function _process(args, cb) {
   });
 
   child.on('exit', function childExit(code, sig) {
-    if(code == 0) {
+    if(code === 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {
         xml2js.parseString(stdout, {
@@ -260,7 +260,8 @@ function _getArgs(options) {
         args.push("-" + key);
       }
       if(options[key] !== true) {
-        args.push(options[key]);
+        var val = (options[key].join) ? options[key].join(",") : options[key];
+        args.push(val);
       }
     }
   }

@@ -14,9 +14,12 @@ Most functions take 3 arguments
  * options: (Object)
   * The keys should match the options from `svn help cmd` (without the - or --). The value will be the argument to the command. If an option does not take an argument (like `--dry-run`) the value should be `true`.
   * Example: `{ "username": "bob", "password": "a-secret", 'dry-run': true }`
+  * If the value is an Array, the values in the array will be joined with a comma (,)
   * There is one exception, the `cwd` option. The `cwd` option will be used for resolving relitive paths for files and working coppies.
  * callback (cb): (Function)
   * Optional. Receives (error, result). 
+
+All of the functions now return the child process that is spawned.
 
 Currently Implemented svn commands
 ----------------------------------
