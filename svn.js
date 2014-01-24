@@ -226,7 +226,15 @@ function _process(args, cb) {
     stderr += data.toString();
   });
 
+	function parentExit(code, sig) {
+		if(child.connected) {
+			child.kill(sig);
+		}
+	}
+	process.on('exit', parentExit);
+	
   child.on('exit', function childExit(code, sig) {
+    process.removeListener('exit', parentExit); 
     if(code === 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {

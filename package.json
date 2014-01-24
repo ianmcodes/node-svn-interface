@@ -2,7 +2,7 @@
   "name": "svn-interface",
   "description": "SVN Interface for Node.js",
   "keywords": ["svn", "subverstion"],
-  "version": "0.3.0",
+  "version": "0.4.0",
   "licence": "MIT",
   "author": "Ian McCall <imccall@da-puck.com> (http://www.da-puck.com/)",
   "contributors": [
