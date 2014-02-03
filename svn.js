@@ -26,10 +26,11 @@ function NOTDONE() {
 function add(files, options, cb) {
 	if(typeof options === 'function') {
 		cb = options; options = {};
-	} 
+	}
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('add', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('add', files, opt, cb);
 }
 
 function blame(files, options, cb) {
@@ -37,8 +38,9 @@ function blame(files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('blame', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('blame', files, opt, cb);
 }
 
 function cat(files, options, cb) {
@@ -79,7 +81,7 @@ function commit (files, options, cb) {
 }
 
 function copy (src, dest, options, cb) {
-  return _execSVN('ci', [src, dest], options, cb);
+  return _execSVN('cp', [src, dest], options, cb);
 }
 
 function svnDelete (files, options, cb) {
@@ -91,8 +93,9 @@ function diff (files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('di', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('di', files, opt, cb);
 }
 
 function svnExport (files, options, cb) {
@@ -109,8 +112,9 @@ function info (files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('info', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('info', files, opt, cb);
 }
 
 function list (files, options, cb) {
@@ -118,8 +122,9 @@ function list (files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('list', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('list', files, opt, cb);
 }
 
 function lock (files, options, cb) {
@@ -131,8 +136,9 @@ function log (files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('log', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('log', files, opt, cb);
 }
 
 function merge (src, target, options, cb) {
@@ -183,8 +189,9 @@ function status(files, options, cb) {
 		cb = options; options = {};
 	} 
   options = (!options) ? {} : options;
-  options.xml = true;
-  return _execSVN('st', files, options, cb);
+  var opt = { xml: true };
+  opt = _extend(opt, options);
+  return _execSVN('st', files, opt, cb);
 }
 
 function patch(file, wc, options, cb) {
@@ -217,7 +224,7 @@ function _execSVN(cmd, files, options, cb) {
 
 function _process(args, cb) {
   var stdout = "", stderr = "";
-  // console.log(COMMAND, args);
+  console.log(COMMAND, args);
   var child = spawn(COMMAND, args);
   child.stdout.on("data", function appendData(data) {
     stdout += data.toString();
@@ -352,3 +359,17 @@ svn.up = svn.update;
 
 module.exports = svn;
 
+/*********
+ * Utils *
+ *********/
+/*
+ * simple extend.
+ */
+function _extend(obj, src) {
+	if(src) {
+		for(var key in src) {
+			obj[key] = src[key];
+		}
+	}
+	return obj;
+}
