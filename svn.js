@@ -224,7 +224,7 @@ function _execSVN(cmd, files, options, cb) {
 
 function _process(args, cb) {
   var stdout = "", stderr = "";
-  console.log(COMMAND, args);
+  // console.log(COMMAND, args);
   var child = spawn(COMMAND, args);
   child.stdout.on("data", function appendData(data) {
     stdout += data.toString();
