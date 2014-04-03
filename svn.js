@@ -24,9 +24,9 @@ function NOTDONE() {
  */
 
 function add(files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	}
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  }
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -34,9 +34,9 @@ function add(files, options, cb) {
 }
 
 function blame(files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -44,26 +44,26 @@ function blame(files, options, cb) {
 }
 
 function cat(files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   return _execSVN('cat', files, options, cb);
 }
 
 function changelist(files, name, options, cb) { //needs to handle change-list name
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   options[name] = true;
   return _execSVN('cl', files, options, cb);
 }
 
 function checkout (url, path, options, cb) {
-	// debugger;
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  // debugger;
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   // options[url] = true;
   // options[path] = (!path) ? options.cwd : path;
@@ -89,9 +89,9 @@ function svnDelete (files, options, cb) {
 }
 
 function diff (files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -107,10 +107,10 @@ function svnImport (files, options, cb) {
 }
 
 function info (files, options, cb) {
-	//debugger;
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  //debugger;
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -118,9 +118,9 @@ function info (files, options, cb) {
 }
 
 function list (files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -132,9 +132,9 @@ function lock (files, options, cb) {
 }
 
 function log (files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -142,9 +142,9 @@ function log (files, options, cb) {
 }
 
 function merge (src, target, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   target = (!target) ? options.cwd : target;
   target = (!target) ? "" : target;
   if(src.split) {
@@ -155,9 +155,9 @@ function merge (src, target, options, cb) {
 }
 
 function mergeinfo (src, target, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   target = (!target) ? options.cwd : target;
   target = (!target) ? "" : target;
   if(src.split) {
@@ -172,22 +172,22 @@ function mkdir (files, options, cb) {
 }
 
 function move (src, dest, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   dest = (!dest) ? options.cwd : dest;
   dest = (!dest) ? "" : dest;
   if(src.split) {
     src = src.split(" ");
   }
   src.push(dest);
-  return _execSVN('merge', src, options, cb);
+  return _execSVN('move', src, options, cb);
 }
 
 function status(files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   options = (!options) ? {} : options;
   var opt = { xml: true };
   opt = _extend(opt, options);
@@ -207,9 +207,9 @@ function update (files, options, cb) {
 }
 
 function _execSVN(cmd, files, options, cb) {
-	if(typeof options === 'function') {
-		cb = options; options = {};
-	} 
+  if(typeof options === 'function') {
+    cb = options; options = {};
+  } 
   cb = (!cb) ? function empty() {} : cb;
   options = (!options) ? {} : options;
   files = _fixFiles(files, options);
@@ -233,13 +233,13 @@ function _process(args, cb) {
     stderr += data.toString();
   });
 
-	function parentExit(code, sig) {
-		if(child.connected) {
-			child.kill(sig);
-		}
-	}
-	process.on('exit', parentExit);
-	
+  function parentExit(code, sig) {
+    if(child.connected) {
+      child.kill(sig);
+    }
+  }
+  process.on('exit', parentExit);
+  
   child.on('exit', function childExit(code, sig) {
     process.removeListener('exit', parentExit); 
     if(code === 0) {
@@ -366,10 +366,10 @@ module.exports = svn;
  * simple extend.
  */
 function _extend(obj, src) {
-	if(src) {
-		for(var key in src) {
-			obj[key] = src[key];
-		}
-	}
-	return obj;
+  if(src) {
+    for(var key in src) {
+      obj[key] = src[key];
+    }
+  }
+  return obj;
 }
