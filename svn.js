@@ -5,6 +5,8 @@ var path = require('path');
 
 var COMMAND = "svn";
 
+process.setMaxListeners(0);
+
 /**
  * This is a dummy function for the features
  * I have not impelmented yet.
