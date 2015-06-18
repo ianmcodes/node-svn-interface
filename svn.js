@@ -3,7 +3,7 @@ var xml2js = require('xml2js');
 var spawn = require('child_process').spawn;
 var path = require('path');
 
-var COMMAND = "svn";
+var command = "svn";
 
 process.setMaxListeners(0);
 
@@ -226,8 +226,8 @@ function _execSVN(cmd, files, options, cb) {
 
 function _process(args, cb) {
   var stdout = "", stderr = "";
-  // console.log(COMMAND, args);
-  var child = spawn(COMMAND, args);
+  // console.log(command, args);
+  var child = spawn(command, args);
   child.stdout.on("data", function appendData(data) {
     stdout += data.toString();
   });
@@ -300,6 +300,10 @@ function _fixFiles(files, options) {
   return files;
 }
 
+function _setCommand(newCommand) {
+  command = newCommand;
+}
+
 var svn = { // Long names
   add: add,
   blame: blame,
@@ -337,7 +341,8 @@ var svn = { // Long names
   unlock: NOTDONE,
   update: update,
   upgrade: NOTDONE,
-  _execSVN: _execSVN
+  _execSVN: _execSVN,
+  _setCommand: _setCommand
 };
 // Aliases
 svn.praise = svn.annotate = svn.ann = svn.blame;
