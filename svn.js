@@ -30,7 +30,7 @@ function add(files, options, cb) {
     cb = options; options = {};
   }
   options = (!options) ? {} : options;
-  var opt = { xml: true };
+  var opt = { };
   opt = _extend(opt, options);
   return _execSVN('add', files, opt, cb);
 }
