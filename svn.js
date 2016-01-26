@@ -212,6 +212,10 @@ function update (files, options, cb) {
   return _execSVN('update', files, options, cb);
 }
 
+function sw(url, path, options, cb) {
+  return _execSVN('switch', [url, path], options, cb);
+}
+
 function _execSVN(cmd, files, options, cb) {
   if(typeof options === 'function') {
     cb = options; options = {};
@@ -341,7 +345,7 @@ var svn = { // Long names
   resolved: NOTDONE,
   revert: revert,
   status: status,
-  "switch": NOTDONE,
+  "switch": sw,
   unlock: NOTDONE,
   update: update,
   upgrade: NOTDONE,
