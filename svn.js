@@ -249,6 +249,7 @@ function _process(args, cb) {
   child.on('exit', function childExit(code, sig) {
     process.removeListener('exit', parentExit); 
     if(code === 0) {
+    if(stderr.length === 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {
         xml2js.parseString(stdout, {
