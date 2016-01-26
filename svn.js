@@ -204,6 +204,10 @@ function revert (files, options, cb) {
   return _execSVN('revert', files, options, cb);
 }
 
+function resolve (files, options, cb) {
+  return _execSVN('resolve', files, options, cb);
+}
+
 function update (files, options, cb) {
   return _execSVN('update', files, options, cb);
 }
@@ -333,7 +337,7 @@ var svn = { // Long names
   proplist: NOTDONE,
   propset: NOTDONE,
   relocate: NOTDONE,
-  resolve: NOTDONE,
+  resolve: resolve,
   resolved: NOTDONE,
   revert: revert,
   status: status,
