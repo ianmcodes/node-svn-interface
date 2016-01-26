@@ -204,8 +204,16 @@ function revert (files, options, cb) {
   return _execSVN('revert', files, options, cb);
 }
 
+function resolve (files, options, cb) {
+  return _execSVN('resolve', files, options, cb);
+}
+
 function update (files, options, cb) {
   return _execSVN('update', files, options, cb);
+}
+
+function sw(url, path, options, cb) {
+  return _execSVN('switch', [url, path], options, cb);
 }
 
 function _execSVN(cmd, files, options, cb) {
@@ -241,10 +249,10 @@ function _process(args, cb) {
     }
   }
   process.on('exit', parentExit);
-  
-  child.on('exit', function childExit(code, sig) {
-    process.removeListener('exit', parentExit); 
-    if(code === 0) {
+
+  child.on('close', function childExit(code, sig) {
+    process.removeListener('exit', parentExit);
+    if(stderr.length === 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {
         xml2js.parseString(stdout, {
@@ -333,11 +341,11 @@ var svn = { // Long names
   proplist: NOTDONE,
   propset: NOTDONE,
   relocate: NOTDONE,
-  resolve: NOTDONE,
+  resolve: resolve,
   resolved: NOTDONE,
   revert: revert,
   status: status,
-  "switch": NOTDONE,
+  "switch": sw,
   unlock: NOTDONE,
   update: update,
   upgrade: NOTDONE,
