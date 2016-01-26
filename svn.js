@@ -245,10 +245,9 @@ function _process(args, cb) {
     }
   }
   process.on('exit', parentExit);
-  
-  child.on('exit', function childExit(code, sig) {
-    process.removeListener('exit', parentExit); 
-    if(code === 0) {
+
+  child.on('close', function childExit(code, sig) {
+    process.removeListener('exit', parentExit);
     if(stderr.length === 0) {
       // console.log(stdout);
       if(args.indexOf('--xml') > -1) {
