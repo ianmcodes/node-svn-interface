@@ -196,6 +196,10 @@ function status(files, options, cb) {
   return _execSVN('st', files, opt, cb);
 }
 
+function svnSwitch (files, options, cb) {
+  return _execSVN('sw', files, options, cb);
+}
+
 function patch(file, wc, options, cb) {
   return _execSVN('patch', [file, wc], options, cb);
 }
@@ -340,7 +344,7 @@ var svn = { // Long names
   resolved: NOTDONE,
   revert: revert,
   status: status,
-  "switch": NOTDONE,
+  "switch": svnSwitch,
   unlock: NOTDONE,
   update: update,
   upgrade: NOTDONE,
