@@ -2,8 +2,8 @@
   "name": "svn-interface",
   "description": "SVN Interface for Node.js",
   "keywords": ["svn", "subverstion"],
-  "version": "0.4.6",
-  "licence": "MIT",
+  "version": "0.5.0",
+  "license": "MIT",
   "author": "Ian McCall <imccall@da-puck.com> (http://www.da-puck.com/)",
   "contributors": [
     {
@@ -13,6 +13,10 @@
     {
       "name": "BobBuehler",
       "url": "https://github.com/BobBuehler"
+    },
+    {
+      "name": "Xiao",
+      "url": "https://github.com/WholeMilk"
     }
   ],
   "main": "./svn",
