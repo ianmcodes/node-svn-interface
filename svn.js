@@ -196,12 +196,20 @@ function status(files, options, cb) {
   return _execSVN('st', files, opt, cb);
 }
 
+function svnSwitch (files, options, cb) {
+  return _execSVN('sw', files, options, cb);
+}
+
 function patch(file, wc, options, cb) {
   return _execSVN('patch', [file, wc], options, cb);
 }
 
 function revert (files, options, cb) {
   return _execSVN('revert', files, options, cb);
+}
+
+function resolve (files, options, cb) {
+  return _execSVN('resolve', files, options, cb);
 }
 
 function update (files, options, cb) {
@@ -242,10 +250,9 @@ function _process(args, cb) {
   }
   process.on('exit', parentExit);
   
-  child.on('exit', function childExit(code, sig) {
-    process.removeListener('exit', parentExit); 
-    if(code === 0) {
-      // console.log(stdout);
+  child.on('close', function childExit(code, sig) {
+    process.removeListener('exit', parentExit);
+    if(stderr.length === 0) {
       if(args.indexOf('--xml') > -1) {
         xml2js.parseString(stdout, {
             attrkey: "_attribute",
@@ -333,11 +340,11 @@ var svn = { // Long names
   proplist: NOTDONE,
   propset: NOTDONE,
   relocate: NOTDONE,
-  resolve: NOTDONE,
+  resolve: resolve,
   resolved: NOTDONE,
   revert: revert,
   status: status,
-  "switch": NOTDONE,
+  "switch": svnSwitch,
   unlock: NOTDONE,
   update: update,
   upgrade: NOTDONE,
