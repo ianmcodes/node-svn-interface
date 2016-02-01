@@ -246,7 +246,7 @@ function _process(args, cb) {
   }
   process.on('exit', parentExit);
   
-  child.on('exit', function childExit(code, sig) {
+  child.on('close', function childExit(code, sig) {
     process.removeListener('exit', parentExit);
     if(stderr.length === 0) {
       if(args.indexOf('--xml') > -1) {
